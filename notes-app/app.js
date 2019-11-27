@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const fileService = require('./services/file.service')
+const noteCommands = require('./services/note.commands.service');
 
 yargs.command({
     command: 'add',
@@ -18,25 +18,8 @@ yargs.command({
         }
     },
     handler: (args) => {
-        const notesFilePath = 'notes.json';
-        const fileContent = fileService.getFileContent(notesFilePath);
-        let duplicatedTitle = false;
-
-        if (fileContent.length > 0) {
-            fileContent.forEach(note => {
-                try {
-                    if (note.title === args.title) {
-                        throw '';
-                    }
-                } catch(e) {
-                    duplicatedTitle = !duplicatedTitle
-                }  
-            });
-        }
-
-        duplicatedTitle ? console.log('title is dublicated') : fileContent.push({title: args.title, text: args.text}) && fileService.writeIntoFile(notesFilePath, fileContent)
-        
+        noteCommands.addNote('notes.json', args.title, args.text);
     }
 })
 
-yargs.parse()
+yargs.parse();
