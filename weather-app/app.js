@@ -1,8 +1,12 @@
 const geolocationService = require('./services/geolocation.service');
+const forecastService = require('./services/forecast.service');
 
 geolocationService.getLocationData('Rivne', (error, response) => {
   if (response && response.features) {
-    console.log(response.features[0].center);
-    return response.features[0].center;
+    forecastService.getLocationWeather(response.features[0].center, (error, response) => {
+      if (response) {
+        console.log(response.hourly);
+      }
+    });
   }
 });

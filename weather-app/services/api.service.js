@@ -1,23 +1,23 @@
 const request = require('request');
 
 class Api {
-  constructor(baseUrl, accessToken) {
-    this.baseUrl = baseUrl;
-    this.accessToken = accessToken;
+  constructor() {
+    if (new.target === Api) {
+      throw new Error('You cannot create an instance of Abstract Class');
+    }
   }
 
   get(url, callback) {
-    request.get(`${this.baseUrl}/${encodeURIComponent(url)}.json?access_token=${this.accessToken}`,
-        {json: true, headers: this.headers}, (error, response, body) => {
-          if (error) {
-            return callback(error, null);
-          }
+    request.get(url, {json: true}, (error, response, body) => {
+      if (error) {
+        return callback(error, null);
+      }
 
-          if (response) {
-            debugger;
-            return callback(null, body);
-          }
-        });
+      if (response) {
+        debugger;
+        return callback(null, body);
+      }
+    });
   }
 }
 
