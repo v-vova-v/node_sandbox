@@ -26,7 +26,6 @@ geolocationService.getLocationData('New York', (error, response) => {
   }
 });
 
-
 app.listen(3000, () => {
   console.log('Strating server on port 3000');
 });

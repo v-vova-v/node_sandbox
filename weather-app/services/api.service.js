@@ -14,7 +14,6 @@ class Api {
       }
 
       if (response) {
-        debugger;
         return callback(null, body);
       }
     });
